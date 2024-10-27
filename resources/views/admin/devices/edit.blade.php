@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Edit Perangkat</h1>
 
-    <form action="{{ route('devices.update', $device->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.devices.update', $device->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -80,7 +80,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary">Update Perangkat</button>
-        <a href="{{ route('devices.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.devices.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
 @endsection

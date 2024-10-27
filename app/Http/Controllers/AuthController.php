@@ -16,11 +16,21 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
+    
         if (Auth::attempt($credentials)) {
-            return redirect()->route('dashboard')->with('success', 'Login berhasil!');
+            $user = Auth::user();
+    
+            // Cek level pengguna
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard')->with('success', 'Login berhasil sebagai admin!');
+            } elseif ($user->role === 'pelanggan') { // Tambahkan kondisi untuk pelanggan
+                return redirect()->route('dashboard')->with('success', 'Login berhasil sebagai pelanggan!');
+            }
+    
+            // Tambahkan penanganan untuk role lain jika ada
+            return redirect()->route('')->with('success', 'Login berhasil!');
         }
-
+    
         return back()->withErrors(['email' => 'Email atau password salah.']);
     }
 

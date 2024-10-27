@@ -16,11 +16,17 @@ class RentalController extends Controller
         return view('rentals.index', compact('rentals'));
     }
 
-    public function create()
-    {
-        $devices = Device::where('available', true)->get();
-        return view('rentals.create', compact('devices'));
+    public function create($id)
+{
+    // Mengambil perangkat berdasarkan ID dan memeriksa ketersediaannya
+    $device = Device::findOrFail($id); // Mengambil perangkat berdasarkan ID
+
+    if (!$device->available) {
+        return back()->with('error', 'Perangkat ini tidak tersedia untuk disewa.');
     }
+
+    return view('rentals.create', compact('device')); // Mengirimkan data perangkat ke tampilan
+}
 
     public function show($id)
 {
@@ -30,10 +36,11 @@ class RentalController extends Controller
 
 public function edit($id)
 {
-    $rental = Rental::findOrFail($id);
-    $devices = Device::where('available', true)->get(); // List perangkat untuk update
-    return view('rentals.edit', compact('rental', 'devices'));
+    $rental = Rental::findOrFail($id); // Ambil rental berdasarkan ID
+    $device = Device::findOrFail($rental->device_id); // Ambil device berdasarkan device_id dari rental
+    return view('rentals.edit', compact('rental', 'device'));
 }
+
 
 public function update(Request $request, $id)
 {

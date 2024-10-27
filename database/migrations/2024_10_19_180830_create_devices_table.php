@@ -15,12 +15,20 @@ class CreateDevicesTable extends Migration
     {
         Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description')->nullable();
-            $table->integer('stock');
-            $table->decimal('rental_price', 10, 2);
-            $table->boolean('available')->default(true);
-            $table->timestamps();
+            $table->string('name'); // Nama perangkat
+            $table->string('paper_size'); // Ukuran kertas
+            $table->string('print_resolution'); // Resolusi Cetak
+            $table->string('print_speed'); // Kecepatan cetak
+            $table->string('print_result'); // Hasil print
+            $table->string('capacity'); // Kapasitas cetak per bulan
+            $table->string('recommended_volume'); // Volume bulanan yang direkomendasikan
+            $table->string('power_consumption'); // Konsumsi daya
+            $table->string('connectivity'); // Jenis konektivitas
+            $table->integer('stock'); // Stok perangkat
+            $table->decimal('rental_price', 10, 2); // Harga sewa
+            $table->boolean('available')->default(true); // Status ketersediaan
+            $table->string('image')->nullable(); // Kolom gambar
+            $table->timestamps(); // Kolom created_at dan updated_at
         });
     }
 

@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Tambah Perangkat</h1>
 
-    <form action="{{ route('devices.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.devices.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -104,7 +104,7 @@
         </div>
 
         <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="{{ route('devices.index') }}" class="btn btn-secondary">Batal</a>
+        <a href="{{ route('admin.devices.index') }}" class="btn btn-secondary">Batal</a>
     </form>
 </div>
 @endsection

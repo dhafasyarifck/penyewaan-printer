@@ -19,7 +19,7 @@
                                 <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard Admin</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('devices.index') }}">Kelola Perangkat</a>
+                                <a class="nav-link" href="{{ route('admin.devices.index') }}">Kelola Perangkat</a>
                             </li>
                             <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.rentals.index') }}">Manajemen Rental</a> <!-- Link untuk admin -->
@@ -28,8 +28,13 @@
                         @else
                             <!-- Item Menu Khusus Pelanggan -->
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('rentals.index') }}">Rental Saya</a>
                             </li>
+                            
+                            
                         @endif
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"

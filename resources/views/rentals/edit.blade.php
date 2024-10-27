@@ -2,40 +2,56 @@
 
 @section('content')
 <div class="container">
-    <h1>Edit Rental</h1>
+    <h1>Edit Rental untuk {{ $device->name }}</h1>
+    
+    @if ($device->image)
+        <img src="{{ asset('images/devices/' . $device->image) }}" alt="{{ $device->name }}" class="img-fluid mb-3">
+    @endif
 
     <form action="{{ route('rentals.update', $rental->id) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <div class="mb-3">
-            <label for="device_id" class="form-label">Perangkat</label>
-            <select name="device_id" id="device_id" class="form-control">
-                @foreach($devices as $device)
-                    <option value="{{ $device->id }}" 
-                        {{ $device->id == $rental->device_id ? 'selected' : '' }}>
-                        {{ $device->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
+        <input type="hidden" name="device_id" value="{{ $device->id }}">
+        
         <div class="mb-3">
             <label for="quantity" class="form-label">Jumlah</label>
-            <input type="number" name="quantity" id="quantity" class="form-control" 
-                   value="{{ $rental->quantity }}" required>
+            <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity" name="quantity" value="{{ $rental->quantity }}" min="1" required>
+            @error('quantity')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="rental_date" class="form-label">Tanggal Rental</label>
-            <input type="date" name="rental_date" id="rental_date" class="form-control" 
-                   value="{{ $rental->rental_date }}" required>
+            <input type="date" class="form-control @error('rental_date') is-invalid @enderror" id="rental_date" name="rental_date" value="{{ $rental->rental_date }}" required>
+            @error('rental_date')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">
             <label for="return_date" class="form-label">Tanggal Pengembalian</label>
-            <input type="date" name="return_date" id="return_date" class="form-control" 
-                   value="{{ $rental->return_date }}" required>
+            <input type="date" class="form-control @error('return_date') is-invalid @enderror" id="return_date" name="return_date" value="{{ $rental->return_date }}" required>
+            @error('return_date')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="delivery_date" class="form-label">Tanggal Pengiriman (Opsional)</label>
+            <input type="date" class="form-control @error('delivery_date') is-invalid @enderror" id="delivery_date" name="delivery_date" value="{{ $rental->delivery_date }}">
+            @error('delivery_date')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="delivery_time" class="form-label">Waktu Pengiriman (Opsional)</label>
+            <input type="time" class="form-control @error('delivery_time') is-invalid @enderror" id="delivery_time" name="delivery_time" value="{{ $rental->delivery_time }}">
+            @error('delivery_time')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">Update Rental</button>

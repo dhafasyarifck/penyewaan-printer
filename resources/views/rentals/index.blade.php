@@ -4,7 +4,6 @@
 <div class="container">
     <div class="d-flex justify-content-between align-items-center my-4">
         <h2>Daftar Rentals</h2>
-        <a href="{{ route('rentals.create') }}" class="btn btn-primary">Create Rental</a>
     </div>
 
     @if (session('success'))
