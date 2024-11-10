@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Device;
 use App\Models\Rental;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -19,14 +20,13 @@ class AdminController extends Controller
         // Ambil 5 penyewaan terbaru
         $recentRentals = Rental::with('device')->latest()->take(5)->get();
 
-        // Data penyewaan bulanan (contoh berdasarkan bulan berjalan)
-        $monthlyRentals = Rental::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
-            ->groupBy('month')
-            ->get()
-            ->pluck('total', 'month')
+        // Data penyewaan harian
+        $dailyRentals = Rental::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as total'))
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->pluck('total', 'date')
             ->toArray();
 
-        return view('admin.dashboard', compact('totalDevices', 'totalRentals', 'recentRentals', 'monthlyRentals'));
+        return view('admin.dashboard', compact('totalDevices', 'totalRentals', 'recentRentals', 'dailyRentals'));
     }
-
 }

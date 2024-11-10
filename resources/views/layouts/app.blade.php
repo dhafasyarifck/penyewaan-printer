@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistem Penyewaan</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-image: url('IMG_URL'); /* Ganti dengan URL gambar Anda */
+            background-size: cover; /* Menutupi seluruh latar belakang */
+            background-position: center; /* Mengatur posisi gambar */
+            background-repeat: no-repeat; /* Mencegah gambar diulang */
+        }
+        
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="#">Mitra Copierindo</a>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -58,7 +67,7 @@
         </div>
     </nav>
 
-    <div class="container py-4">
+    <div class="container">
         <!-- Notifikasi Sukses -->
         @if (session('success'))
             <div class="alert alert-success">
@@ -86,5 +95,16 @@
 
         @yield('content')
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-light text-center text-lg-start">
+        <div class="text-center p-3" style="background-color: #f1f1f1;">
+            © {{ date('Y') }} Mitra Copierindo. All rights reserved.
+            <a class="text-dark" href="#">Privacy Policy</a> | 
+            <a class="text-dark" href="#">Terms of Service</a>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
