@@ -54,6 +54,34 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label for="alamat" class="form-label">Alamat</label>
+            <input type="text" class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ $rental->alamat }}">
+            @error('alamat')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+
+        <div class="mb-3">
+            <label for="no_telp" class="form-label">Nomor Telepon</label>
+            <input type="text" class="form-control @error('no_telp') is-invalid @enderror" id="no_telp" name="no_telp" value="{{ $rental->no_telp }}">
+            @error('no_telp')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+
+        <div class="mb-3">
+            <label for="atas_nama" class="form-label">Atas Nama</label>
+            <input type="text" class="form-control @error('atas_nama') is-invalid @enderror" id="atas_nama" name="atas_nama" value="{{ $rental->atas_nama }}">
+            @error('atas_nama')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+
+
+
         <button type="submit" class="btn btn-primary">Update Rental</button>
     </form>
 </div>

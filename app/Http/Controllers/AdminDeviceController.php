@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Device;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class AdminDeviceController extends Controller
 {
@@ -116,5 +118,18 @@ class AdminDeviceController extends Controller
         $device->delete();
 
         return redirect()->route('admin.devices.index')->with('success', 'Perangkat berhasil dihapus.');
+    }
+
+    public function exportPdf()
+    {
+        try {
+            $devices = Device::all(); // Ambil semua data perangkat
+            $pdf = PDF::loadView('admin.devices.pdf', compact('devices'));
+            return $pdf->download('laporan_perangkat.pdf');
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+            ]);
+        }
     }
 }

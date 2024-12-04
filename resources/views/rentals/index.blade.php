@@ -16,8 +16,11 @@
         <thead>
             <tr>
                 <th>#</th>
+                <th>Nama</th>
                 <th>Device</th>
                 <th>Quantity</th>
+                <th>Alamat</th>
+                <th>No Telpon yg Dihubungi</th>
                 <th>Rental Date</th>
                 <th>Return Date</th>
                 <th>Status</th>
@@ -28,15 +31,20 @@
             @foreach($rentals as $rental)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
+                    <td>{{ $rental->atas_nama}}</td>
                     <td>{{ $rental->device->name }}</td>
                     <td>{{ $rental->quantity }}</td>
+                    <td>{{ $rental->alamat }}</td>
+                    <td>{{ $rental->no_telp }}</td>
                     <td>{{ $rental->rental_date }}</td>
                     <td>{{ $rental->return_date }}</td>
                     <td>{{ ucfirst($rental->status) }}</td>
                     <td>
-                <a href="{{ route('rentals.show', $rental->id) }}" class="btn btn-info btn-sm">View</a>
+                    <a href="{{ route('rentals.pdf', $rental->id) }}" class="btn btn-success btn-sm">Print</a>
+
+                    <a href="{{ route('rentals.show', $rental->id) }}" class="btn btn-info btn-sm">View</a>
                 
-                @if ($rental->status == 'pending') <!-- Pengecekan status -->
+                @if ($rental->status == 'Menuggu Verifikasi') <!-- Pengecekan status -->
                     <a href="{{ route('rentals.edit', $rental->id) }}" class="btn btn-warning btn-sm">Edit</a>
                 @else
                     <span class="text-muted">Tidak bisa edit</span> <!-- Pesan jika tidak bisa edit -->

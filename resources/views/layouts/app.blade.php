@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <style>
         body {
-            background-image: url('IMG_URL'); /* Ganti dengan URL gambar Anda */
+            
             background-size: cover; /* Menutupi seluruh latar belakang */
             background-position: center; /* Mengatur posisi gambar */
             background-repeat: no-repeat; /* Mencegah gambar diulang */
@@ -31,7 +31,16 @@
                                 <a class="nav-link" href="{{ route('admin.devices.index') }}">Kelola Perangkat</a>
                             </li>
                             <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.rentals.index') }}">Manajemen Rental</a> <!-- Link untuk admin -->
+                        <a class="nav-link" href="{{ route('admin.rentals.index') }}">Manajemen Rental</a> 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLaporan" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Laporan
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownLaporan">
+                                <li><a class="dropdown-item" href="{{ route('admin.reports.devices') }}">Laporan Perangkat</a></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.reports.rentals') }}">Laporan Rental</a></li>
+                            </ul>
+                        </li>
                     </li>
 
                         @else

@@ -26,14 +26,20 @@
         </div>
 
         <div class="mb-3">
-            <label for="delivery_date" class="form-label">Tanggal Pengiriman (Opsional)</label>
-            <input type="date" class="form-control" id="delivery_date" name="delivery_date">
+            <label for="alamat" class="form-label">Alamat</label>
+            <input type="text" class="form-control" id="alamat" name="alamat" required>
         </div>
 
         <div class="mb-3">
-            <label for="delivery_time" class="form-label">Waktu Pengiriman (Opsional)</label>
-            <input type="time" class="form-control" id="delivery_time" name="delivery_time">
+            <label for="no_telp" class="form-label">No Telepon</label>
+            <input type="text" class="form-control" id="no_telp" name="no_telp" required>
         </div>
+
+        <div class="mb-3">
+            <label for="atas_nama" class="form-label">Atas Nama</label>
+            <input type="text" class="form-control" id="atas_nama" name="atas_nama" required>
+        </div>
+
 
         <button type="submit" class="btn btn-primary">Sewa</button>
     </form>

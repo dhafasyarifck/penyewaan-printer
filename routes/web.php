@@ -7,6 +7,7 @@ use App\Http\Controllers\RentalController;
 use App\Http\Controllers\AdminRentalController;
 use App\Http\Controllers\AdminDeviceController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 // Arahkan '/' ke login jika belum login
@@ -44,14 +45,15 @@ Route::post('devices/{device}/rent', [DeviceController::class, 'rent'])->name('d
    
 
 
-    // Routes untuk Rental
-    Route::get('/rentals/create/{id}', [RentalController::class, 'create'])->name('rentals.create');
-    Route::post('/rentals', [RentalController::class, 'store'])->name('rentals.store'); // Proses penyimpanan rental baru
-    Route::get('/rentals', [RentalController::class, 'index'])->name('rentals.index'); // Daftar rental
-    Route::get('/rentals/{rental}', [RentalController::class, 'show'])->name('rentals.show'); // Detail rental
-    Route::get('/rentals/{rental}/edit', [RentalController::class, 'edit'])->name('rentals.edit'); // Form untuk mengedit rental
-    Route::put('/rentals/{rental}', [RentalController::class, 'update'])->name('rentals.update'); // Proses pembaruan rental
-    Route::delete('/rentals/{rental}', [RentalController::class, 'destroy'])->name('rentals.destroy'); // Proses penghapusan rental
+   // Routes untuk Rental
+Route::get('/rentals', [RentalController::class, 'index'])->name('rentals.index'); // Daftar rental
+Route::get('/rentals/create/{id}', [RentalController::class, 'create'])->name('rentals.create'); // Form tambah rental
+Route::post('/rentals', [RentalController::class, 'store'])->name('rentals.store'); // Proses penyimpanan rental baru
+Route::get('/rentals/{rental}', [RentalController::class, 'show'])->name('rentals.show'); // Detail rental
+Route::get('/rentals/{rental}/edit', [RentalController::class, 'edit'])->name('rentals.edit'); // Form untuk mengedit rental
+Route::put('/rentals/{rental}', [RentalController::class, 'update'])->name('rentals.update'); // Proses pembaruan rental
+Route::delete('/rentals/{rental}', [RentalController::class, 'destroy'])->name('rentals.destroy'); // Proses penghapusan rental
+Route::get('/rentals/{id}/pdf', [RentalController::class, 'generatePdf'])->name('rentals.pdf')->middleware('auth'); // Generate PDF
 });
 
 
@@ -63,6 +65,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/rentals/{id}/edit', [AdminRentalController::class, 'edit'])->name('admin.rentals.edit');
     Route::put('/admin/rentals/{id}', [AdminRentalController::class, 'update'])->name('admin.rentals.update');
     Route::patch('/admin/rentals/{rental}/status', [AdminRentalController::class, 'updateStatus'])->name('admin.rentals.updateStatus');
+    Route::get('/admin/rentals/{id}/pdf', [AdminRentalController::class, 'generatePdf'])->name('admin.rentals.pdf');
+    Route::get('/admin/devices/export-pdf', [AdminDeviceController::class, 'exportPdf'])->name('admin.devices.exportPdf');
     Route::resource('admin/devices', AdminDeviceController::class)->names([
         'index' => 'admin.devices.index',
         'create' => 'admin.devices.create',
@@ -72,4 +76,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
         'update' => 'admin.devices.update',
         'destroy' => 'admin.devices.destroy',
     ]);
+    Route::get('/reports/devices', [ReportController::class, 'devices'])->name('admin.reports.devices');
+    Route::get('/reports/rentals', [ReportController::class, 'rentals'])->name('admin.reports.rentals');
+
+    
 });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Rental;
 use Illuminate\Http\Request;
 
@@ -38,7 +39,7 @@ class AdminRentalController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:pending,approved,rejected', // Sesuaikan dengan status yang Anda miliki
+            'status' => 'required|in:Menunggu Verifikasi,Pesanan Diterima,Pesanan Ditolak,Sedang Masa Penyewaan,Selesai Penyewaan', // Sesuaikan dengan status yang Anda miliki
         ]);
 
         $rental = Rental::findOrFail($id);
@@ -46,5 +47,31 @@ class AdminRentalController extends Controller
         $rental->save();
 
         return redirect()->route('admin.rentals.index')->with('success', 'Status rental berhasil diperbarui.');
+    }
+
+    public function generatePdf($id)
+    {
+        // Ambil data rental berdasarkan ID dengan relasi
+        $rental = Rental::with(['device', 'user'])->findOrFail($id);
+
+        // Cek apakah device dan user terhubung
+        if (!$rental->device || !$rental->user) {
+            return redirect()->route('admin.rentals.index')
+                ->with('error', 'Data rental tidak lengkap. Tidak dapat membuat PDF.');
+        }
+
+        // Pastikan data rental sudah ada dan valid
+        if ($rental) {
+            // Render PDF menggunakan view
+            $pdf = PDF::loadView('admin.rentals.pdf', compact('rental'));
+
+            // Unduh file PDF dengan nama yang sesuai
+            $filename = "Rental_{$rental->id}.pdf";
+            return $pdf->download($filename);
+        }
+
+        // Jika rental tidak ditemukan
+        return redirect()->route('admin.rentals.index')
+            ->with('error', 'Rental tidak ditemukan.');
     }
 }

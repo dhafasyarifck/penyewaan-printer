@@ -22,6 +22,9 @@ return new class extends Migration
             $table->date('delivery_date')->nullable();
             $table->time('delivery_time')->nullable();
             $table->string('status')->default('pending');
+            $table->string('alamat'); // Untuk alamat pengiriman
+            $table->string('no_telp'); // Nomor telepon kontak
+            $table->string('atas_nama'); // Nama pemesan
             $table->timestamps();
         });
     }
